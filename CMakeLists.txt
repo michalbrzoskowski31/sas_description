@@ -10,16 +10,31 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
 
-add_executable(joint_controller src/joint_controller.cpp)
+add_executable(joint_controller 
+  src/joint_controller.cpp
+)
+
 ament_target_dependencies(
   joint_controller
   rclcpp
   sensor_msgs
+  std_msgs
 )
+
+#klawaitura
+add_executable(teleop_keyboard src/teleop_keyboard.cpp)
+ament_target_dependencies(
+  teleop_keyboard
+  rclcpp
+  std_msgs
+)
+
 
 install(TARGETS
   joint_controller
+  teleop_keyboard
   DESTINATION lib/${PROJECT_NAME}
 )
 
