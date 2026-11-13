@@ -1,17 +1,14 @@
 <?xml version="1.0"?>
 <robot name="sas">
 
-    <!-- Wirtualny punkt odniesienia stojący prosto na ziemi -->
     <link name="world"/>
 
     <joint name="world_to_base_joint" type="fixed">
         <parent link="world"/>
         <child link="base_link"/>
-        <!-- Obrót całego robota o 90 stopni wokół osi X -->
         <origin xyz="0 0 0" rpy="1.5708 0 0"/>
     </joint>
 
-    <!-- Człon bazowy -->
     <link name="base_link">
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -24,18 +21,14 @@
         </visual>
     </link>
 
-    <!-- Przegub wózka: zazwyczaj ruch pryzmatyczny (przesuwny) lub stały do testu -->
     <joint name="carriage_joint" type="prismatic">
         <parent link="base_link"/>
         <child link="carriage_link"/>
-        <!-- Pozycja startowa wózka względem bazy: zmień jeśli wózek ma punkt zerowy gdzie indziej -->
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <!-- Oś przesuwu (np. wzdłuż Z lub X - dostosuj do swojej geometrii) -->
         <axis xyz="0 1 0"/>
         <limit lower="-0.464" upper="2.033" effort="100.0" velocity="0.5"/>
     </joint>
 
-    <!-- Wózek -->
     <link name="carriage_link">
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0"/>
@@ -48,17 +41,12 @@
         </visual>
     </link>
 
-    <!-- Przegub wiertła: ruch obrotowy (ciągły lub z ograniczeniem) -->
     <joint name="drill_joint" type="fixed">
         <parent link="carriage_link"/>
         <child link="drill_link"/>
-        <!-- Pozycja wiertła względem wózka: dopasuj punkt montażu -->
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <!-- Oś obrotu wiertła -->
-        <!-- <axis xyz="0 1 0"/> -->
     </joint>
 
-    <!-- Wiertło -->
     <link name="drill_link">
         <visual>
             <origin xyz="0 0 0" rpy="0 0 0"/>
